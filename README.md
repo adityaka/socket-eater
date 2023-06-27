@@ -4,6 +4,11 @@ Can be used as an example of threaded socket server and client and also to exhas
 all client ports on a linux machine. 
 
 ## Usage
+
+Any directory with __main__.py can be used as a python executable. 
+1. Clone the repository
+1. run the directory 
+
 ```
 git clone https://github.com/adityaka/socket-eater
 python3 <path>/socket-eater (the directory)
