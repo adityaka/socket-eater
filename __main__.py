@@ -4,6 +4,7 @@ from applog import LoggerFactory
 from server import ServerTask
 from client import SocketClient
 from application import Application
+from dnstest import DnsClientTask
 __appname__ = "socket-eater"
 
 def setup_parser():
@@ -32,7 +33,8 @@ if __name__ == "__main__":
     server_tasks = [ServerTask(ServerTask.TYPE_TCP, args.tcp_port, "0.0.0.0"), ServerTask(ServerTask.TYPE_UDP, args.udp_port, "0.0.0.0")]
     tcp_client_tasks = [ SocketClient(SocketClient.TYPE_TCP, "127.0.0.1", args.tcp_port) for tt in range(args.tcp_client_count) ]
     udp_client_tasks = [ SocketClient(SocketClient.TYPE_UDP, "127.0.0.1", args.udp_port) for tt in range(args.udp_client_count) ]
-    tasks = server_tasks + tcp_client_tasks + udp_client_tasks
+    dns_resolver_tasks = [DnsClientTask(x) for x in ["www.google.com", "ns1.com","amazon.in"] ]
+    tasks = server_tasks + tcp_client_tasks + udp_client_tasks + dns_resolver_tasks
     app = Application(logger, tasks)
     app()
     logger.info("Bye Bye!!")
